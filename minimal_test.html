@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Minimal LIFF Test (GitHub)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style> body { font-family: sans-serif; padding: 15px; } </style>
+</head>
+<body>
+  <h1>Minimal LIFF Test (GitHub)</h1>
+  <p id="status">1. Page Loaded. Waiting for LIFF...</p>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script>
+    const LIFF_ID = '2007495650-9bVK1YYM'; // <--- ใส่ LIFF ID ล่าสุดของคุณ
+    const statusP = document.getElementById('status');
+
+    async function runTest() {
+      try {
+        statusP.textContent = '2. Calling liff.init...';
+        console.log('Calling liff.init...');
+        await liff.init({ liffId: LIFF_ID });
+        statusP.textContent = '3. liff.init OK! Getting profile...';
+        console.log('liff.init OK!');
+
+        const profile = await liff.getProfile();
+        statusP.textContent = '4. Profile OK: ' + profile.displayName;
+        console.log('Profile OK:', profile.displayName);
+
+      } catch (err) {
+        statusP.textContent = 'ERROR: ' + err.message;
+        console.error('LIFF Test Error:', err);
+      }
+    }
+    runTest();
+  </script>
+</body>
+</html>
